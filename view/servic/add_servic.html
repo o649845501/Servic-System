@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+</head>
+<body>
+<script src="../../static/layui/layui.js"></script>
+<blockquote class="layui-elem-quote">数据监控中心</blockquote>
+<form class="layui-form" action="{:url('/servic/save')}" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">输入姓名</label>
+        <div class="layui-input-block" style="width: 200px">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <label class="layui-form-label">输入账号</label>
+        <div class="layui-input-block" style="width: 200px">
+            <input type="text" name="user" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">输入密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="gender" value="男" title="男">
+            <input type="radio" name="gender" value="女" title="女" checked>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">维修区域名</label>
+        <div class="layui-input-inline">
+            <input  name="range_name" required lay-verify="required" placeholder="请输入区域名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域人数</label>
+        <div class="layui-input-inline">
+            <input  name="range_number" required lay-verify="required" placeholder="请输入区域人数" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域年级</label>
+        <div class="layui-input-inline">
+            <input  name="range_grade" required lay-verify="required" placeholder="请输入区域年级" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+ <!--   <div class="layui-form-item">
+        <label class="layui-form-label">菜单权限选择</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="like[write]" title="用户管理">
+            <input type="checkbox" name="like[read]" title="维修信息管理">
+        </div>
+    </div>-->
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+
+    });
+</script>
+</body>
+</html>

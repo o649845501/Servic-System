@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/public/static/layui/css/layui.css">
+<script type="text/javascript" src="/public/static/layui/layui.js"></script>
+<body>
+<div class="layui-row" style="margin-left: 20px">
+    <div class="layui-row" style="margin-top: 10px">
+        <a href="{:url('/addadmin')}" class="layui-btn">添加管理员</a>
+    </div>
+    <!-- 搜索表单-->
+    <form action="{:url('/admin')}" class="layui-form">
+    <div class="layui-form-item layui-col-md-offset8">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" required  lay-verify="required" placeholder="请输入管理员姓名" autocomplete="off" class="layui-input" style="width: 200px">
+            </div>
+            <div class="layui-input-inline" style="margin-left: 10px">
+            <button class="layui-btn">搜索</button>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!--          数据列表-->
+
+</table>
+</div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+</head>
+<body>
+<blockquote class="layui-elem-quote">以下列表为待调度订单信息，请管理员核对信息再进行调度{$id}</blockquote>
+<table id="diaodu" lay-filter="demo"></table>
+<hr class="layui-bg-green">
+<fieldset class="layui-elem-field">
+    <legend>调度</legend>
+    <div class="layui-field-box">
+        以下为调度区域，请管理员选择需要调配的维修员，然后在调度一栏点击确定按钮。
+    </div>
+
+<table id="demo" lay-filter="demo"></table>
+</fieldset>
+<script type="text/html" id="barDemo">
+    <i class="layui-icon layui-icon-release"></i>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">确定调配</a>
+</script>
+<script src="../../static/layui/layui.js"></script>
+<script src="../../static/jquery-3.4.1.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url: '/index.php/Servic/create' //数据接口
+            ,page: true //开启分页
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": 0, //解析接口状态
+                    "msg": '', //解析提示文本
+                    "count": res.count, //解析数据长度
+                    "data": res.data,//解析数据列表
+                };
+            }
+            ,cols: [[ //表头
+                ,{field: 'user', title: '用户名',event:'setuser', width:80}
+                ,{field: 'name', title: '姓名',event:'setname', width:100,}
+                ,{field: 'status', title: '状态',event:'setstatus', width:80}
+                ,{field: 'gender', title: '性别',event:'setgender', width: 177}
+                ,{field: 'range_name', title: '区域名称', width:100}
+                ,{field: 'range_number', title: '区域人数', width:100}
+                ,{field: 'range_grade', title: '区域年级', width:100}
+                ,{fixed: 'right', title:'调度', toolbar: '#barDemo', width:150}
+            ]]
+        });
+        //调度参考列表渲染
+        table.render({
+            elem: '#diaodu'
+            ,url: '/index.php/reference?id='+{$id} //数据接口
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": 0, //解析接口状态
+                    "msg": '', //解析提示文本
+                    "count": res.count, //解析数据长度
+                    "data": res.data,//解析数据列表
+                };
+            }
+            ,cols: [[ //表头
+                {field: 'Id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'dorm_id', title: '宿舍编号', width:80}
+                ,{field: 'name', title: '姓名', width:100,}
+                ,{field: 'status', title: '状态', width:80}
+                ,{field: 'datails', title: '详情'}
+                ,{field: 'facility', title: '维修设施', width: 80}
+                ,{field: 'campue', title: '校区', width: 100}
+                ,{field: 'creat_time', title: '创建时间', width: 200, sort: true}
+                ,{field: 'updata_time', title: '创建时间', width: 200, sort: true}
+            ]]
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            //监听列表删除按钮
+            if(obj.event === 'del'){
+                var str= data;
+
+                layer.confirm('真的要调配吗？', function(index){
+                    $.ajax({
+                        url:'/index.php/yeswait'
+                        ,type:'POST'
+                        ,data:{str}
+                        ,success:function(rst){
+                            if (rst)
+                            {
+                                obj.del();
+                                layer.close(index);
+                                alert('调配成功')
+                            }
+                            else
+                            {
+                                alert('调配失败')
+                            }
+                        }
+
+                    });
+
+                });
+            }
+
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

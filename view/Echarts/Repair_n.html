@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <script src="../../static/echarts.min.js"></script>
+
+</head>
+<body>
+<blockquote class="layui-elem-quote">数据监控中心<input type="text" class="layui-input" id="test1"></blockquote>
+<div class="layui-row layui-fluid" style="padding-top: 50px">
+
+<div id="main" class=" layui-col-md6" style="width: 600px;height:700px;">
+
+</div>
+<div class="layui-col-md6 layui-col-md-offset1" id="main1" style="width: 800px;height:500px;">
+
+</div>
+
+</div>
+
+<script src="../../static/jquery-3.4.1.js"></script>
+<script src="../../static/layui/layui.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+
+    var pir = echarts.init(document.getElementById('main'))
+    var pir1 = echarts.init(document.getElementById('main1'))
+    // 指定图表的配置项和数据
+
+
+                option1 = {
+                    title: {
+                        text: '维修报修比',
+                        left: 'center',
+
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left',
+                    },
+                    series: [{
+                        type: 'pie',
+                        radius: '60%',
+                        center :['50%','350'],
+                        data: [{name:'已维修',value: {$value3}},{name:'已报修',value:{$value2}},{name:'待维修',value:{$value1}}],
+                        emphasis:{
+                            itemStyle:{
+                                shadowBlur:10,
+                                shadowOffsetX:5,
+                            }
+                        }
+                    },
+
+                    ]
+                };
+    option2 = {
+        title: {
+            text: '走势堆叠图'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['已维修', '已报修', '待维修']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['第一周', '第二周', '第三周', '第四周', '第五周', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '已维修',
+                type: 'line',
+                stack: '',
+                data: [120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                name: '已报修',
+                type: 'line',
+                stack: '',
+                data: [220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name: '待维修',
+                type: 'line',
+                stack: '',
+                data: [150, 232, 201, 154, 190, 330, 410]
+            },
+
+        ]
+    };
+                pir.setOption(option1);
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    pir1.setOption(option2);
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+            ,type: 'month'
+        });
+    });
+
+</script>
+</body>
+</html>

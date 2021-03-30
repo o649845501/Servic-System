@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+</head>
+<body>
+<form class="layui-form" action="{:url('/adduser')}" method="post">
+    <div class="layui-form-item" >
+        <label class="layui-form-label">输入账号</label>
+        <div class="layui-input-block" style="width: 200px">
+            <input type="text" name="user" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">输入密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择天数</label>
+        <div class="layui-input-block">
+            <input type="radio" name="time" value="15" title="15天">
+            <input type="radio" name="time" value="30" title="30天" checked>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script src="../../static/layui/layui.js"></script>
+<script src="../../static/jquery-3.4.1.js"></script>
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+
+    });
+</script>
+</body>
+</html>

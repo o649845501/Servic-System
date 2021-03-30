@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+
+</head>
+<body>
+<blockquote class="layui-elem-quote">数据监控中心</blockquote>
+<table id="demo" lay-filter="demo"></table>
+<script type="text/html" id="barDemo">
+    <i class="layui-icon layui-icon-delete"></i>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="../../static/layui/layui.js"></script>
+<script src="../../static/jquery-3.4.1.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url: '/index.php/Whereservicyes/whereyes' //数据接口
+            ,page: true //开启分页
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": 0, //解析接口状态
+                    "msg": '', //解析提示文本
+                    "count": res.count, //解析数据长度
+                    "data": res.data,//解析数据列表
+                };
+            }
+            ,cols: [[ //表头
+                {field: 'Id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'dorm_id', title: '宿舍编号', width:80}
+                ,{field: 'name', title: '姓名', width:100,}
+                ,{field: 'status', title: '状态', width:80}
+                ,{field: 'datails', title: '详情'}
+                ,{field: 'facility', title: '维修设施', width: 80}
+                ,{field: 'campue', title: '校区', width: 100}
+                ,{field: 'creat_time', title: '创建时间', width: 200, sort: true}
+                ,{field: 'updata_time', title: '创建时间', width: 200, sort: true}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+            ]]
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            //监听列表删除按钮
+            if(obj.event === 'del'){
+                var str= data;//数组转string
+
+                layer.confirm('真的删除行么', function(index){
+                    $.ajax({
+                        url:'/index.php/delate/delservic'
+                        ,type:'POST'
+                        ,data:{str}
+                        ,success:function(rst){
+                            if (rst)
+                            {
+                                obj.del();
+                                layer.close(index);
+                                alert('删除成功')
+                            }
+                            else
+                            {
+                                alert('删除失败')
+                            }
+                        }
+
+                    });
+
+                });
+            }
+
+        });
+
+    });
+</script>
+
+</body>
+</html>
